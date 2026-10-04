@@ -13,3 +13,6 @@ reports/eda/
 reports/roc.png
 reports/experiments.json
 reports/drift.json
+
+# Выходы подготовки отслеживаются DVC, а не Git.
+/data/processed/*.csv

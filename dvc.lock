@@ -1,0 +1,107 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python -m src.data prepare
+    deps:
+    - path: data/raw/credit.csv
+      hash: md5
+      md5: b4bf11c60a1b7b3298a1bb20d7f5ae05
+      size: 2867208
+    - path: requirements.txt
+      hash: md5
+      md5: e758a6b90914c60e120de86b563398a6
+      size: 3005
+    - path: src/data.py
+      hash: md5
+      md5: e04a935e81ff230f2faec83fe1b88c43
+      size: 3951
+    - path: src/schema.py
+      hash: md5
+      md5: 380c900261851c9970347d09bba4b13b
+      size: 564
+    - path: src/validation.py
+      hash: md5
+      md5: 91177672bd0238ff4db2e49dc2d6b26a
+      size: 3372
+    outs:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 663330c84d20e7ef11f7f5729de14994
+      size: 573839
+    - path: data/processed/train.csv
+      hash: md5
+      md5: 5bc8286dcb7fee773d0b7b41af8e54bc
+      size: 2293548
+  eda:
+    cmd: python -m src.eda
+    deps:
+    - path: data/processed/train.csv
+      hash: md5
+      md5: 5bc8286dcb7fee773d0b7b41af8e54bc
+      size: 2293548
+    - path: src/eda.py
+      hash: md5
+      md5: 3726a52abf43c8c8b6282cd71d27b9c2
+      size: 2984
+    - path: src/schema.py
+      hash: md5
+      md5: 380c900261851c9970347d09bba4b13b
+      size: 564
+    outs:
+    - path: reports/eda
+      hash: md5
+      md5: a54a5f98b39b382dce4156323f8877be.dir
+      size: 73340
+      nfiles: 7
+  train:
+    cmd: python -m src.train
+    deps:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 663330c84d20e7ef11f7f5729de14994
+      size: 573839
+    - path: data/processed/train.csv
+      hash: md5
+      md5: 5bc8286dcb7fee773d0b7b41af8e54bc
+      size: 2293548
+    - path: requirements.txt
+      hash: md5
+      md5: e758a6b90914c60e120de86b563398a6
+      size: 3005
+    - path: src/features.py
+      hash: md5
+      md5: c6c649fec826c36b65f4762ee13ea9ef
+      size: 1106
+    - path: src/model.py
+      hash: md5
+      md5: 0854dfe7f3847f9554399ce264ef11b3
+      size: 1521
+    - path: src/schema.py
+      hash: md5
+      md5: 380c900261851c9970347d09bba4b13b
+      size: 564
+    - path: src/train.py
+      hash: md5
+      md5: ec0ac0ed30d636057c8f5d942f98fbbe
+      size: 7185
+    - path: src/validation.py
+      hash: md5
+      md5: 91177672bd0238ff4db2e49dc2d6b26a
+      size: 3372
+    outs:
+    - path: models/pipeline.joblib
+      hash: md5
+      md5: bf5eb9cad78eec35594ddad23f7e2c1a
+      size: 90765
+    - path: reports/experiments.json
+      hash: md5
+      md5: 3f6bd3ece062436bf5457a151b0d056f
+      size: 940
+    - path: reports/metrics.json
+      hash: md5
+      md5: 51a62b628491ef249c3bcd2a02bfab3f
+      size: 132
+    - path: reports/roc.png
+      hash: md5
+      md5: cffe00bd04e6b52e0052219ed892c278
+      size: 23756

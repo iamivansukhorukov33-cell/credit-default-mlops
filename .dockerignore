@@ -8,3 +8,7 @@ mlartifacts
 data
 __pycache__
 .pytest_cache
+
+.dvc
+.mplconfig
+reports

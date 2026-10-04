@@ -86,6 +86,15 @@ def train():
             mlflow.sklearn.log_model(
                 search.best_estimator_,
                 name="pipeline",
+                pyfunc_predict_fn="predict_proba",  # MLflow возвращает вероятности.
+                code_paths=["src"],  # Прикладываем собственные преобразования.
+                skops_trusted_types=[
+                    "numpy.dtype",
+                    "src.features.Features",
+                    "src.model.numeric_columns",
+                    "sklearn.tree._tree.Tree",  # Деревья, обученные этим же скриптом; не внешний файл.
+                ],  # Только типы нашего обученного pipeline.
+                pip_requirements="requirements.txt",  # Фиксированные версии окружения.
                 signature=infer_signature(X, search.best_estimator_.predict_proba(X)),
                 input_example=X.head(2),
             )  # Модель каждого опыта.
