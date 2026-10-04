@@ -1,0 +1,10 @@
+# Уменьшаем контекст сборки.
+.venv
+.git
+.dvc/cache
+mlflow.db*
+mlruns
+mlartifacts
+data
+__pycache__
+.pytest_cache

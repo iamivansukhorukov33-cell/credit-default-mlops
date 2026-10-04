@@ -1,0 +1,15 @@
+# Локальные среды и временные результаты.
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+mlflow.db*
+mlruns/
+mlartifacts/
+.mplconfig/
+reports/validation.json
+reports/expectation_suite.json
+reports/eda/
+reports/roc.png
+reports/experiments.json
+reports/drift.json

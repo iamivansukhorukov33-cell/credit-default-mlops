@@ -1,0 +1,24 @@
+# Continuous Integration (CI) — автоматические проверки каждого push.
+name: tests-and-data-validation
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: black --check src tests scripts
+      - run: ruff check src tests scripts
+      - run: pytest -q
+      # Проверяем настоящий датасет, не только искусственный fixture.
+      - run: python -m src.data download
+      - run: python -m src.data prepare
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: data-validation
+          path: reports/validation.json
