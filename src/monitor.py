@@ -8,17 +8,23 @@ from src.schema import FEATURES  # Схема.
 
 
 def psi(reference, current):
-    reference, current = np.asarray(reference), np.asarray(current)  # Массивы.
+    # Validate distributions before binning. / Проверяем распределения до разбиения.
+    reference = np.asarray(reference, dtype=float)
+    current = np.asarray(current, dtype=float)
+    if reference.ndim != 1 or current.ndim != 1:
+        raise ValueError("Expected one-dimensional distributions")
     if not len(reference) or not len(current):
-        raise ValueError("Empty distribution")  # Нельзя оценить пустые данные.
-    edges = np.unique(
-        np.quantile(reference, np.linspace(0, 1, 11))
-    )  # Границы только по train.
-    edges = np.r_[-np.inf, edges[1:-1], np.inf]  # Новые крайние значения не теряются.
-    if len(edges) == 2:
-        edges = np.array(
-            [-np.inf, float(reference[0]) + 0.5, np.inf]
-        )  # Постоянный признак.
+        raise ValueError("Empty distribution")
+    if not np.isfinite(reference).all() or not np.isfinite(current).all():
+        raise ValueError("Non-finite distribution")
+    quantiles = np.unique(np.quantile(reference, np.linspace(0, 1, 11)))
+    if len(quantiles) == 1:
+        # Isolate a constant in both directions. / Учитываем сдвиг константы в обе стороны.
+        value = float(quantiles[0])
+        edges = np.array([-np.inf, value, np.nextafter(value, np.inf), np.inf])
+    else:
+        # Keep tails and quantile boundaries. / Сохраняем хвосты и границы квантилей.
+        edges = np.r_[-np.inf, quantiles, np.inf]
     a = np.histogram(reference, bins=edges)[0] / len(reference)  # Эталонные доли.
     b = np.histogram(current, bins=edges)[0] / len(current)  # Новые доли.
     a, b = np.clip(a, 1e-6, 1), np.clip(b, 1e-6, 1)  # Защита логарифма.

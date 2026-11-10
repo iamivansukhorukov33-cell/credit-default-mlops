@@ -39,3 +39,14 @@ def test_duplicate_client(frame):
     frame.loc[1, "ID"] = frame.loc[0, "ID"]  # Повтор клиента.
     with pytest.raises(ValueError, match="Duplicate"):
         clean(frame)  # Нельзя смешать одного клиента между train/test.
+
+
+def test_nonfinite_bill_rejected(frame):
+    import numpy as np
+    import pytest
+    from src.validation import validate
+
+    frame["BILL_AMT1"] = frame["BILL_AMT1"].astype(float)
+    frame.loc[0, "BILL_AMT1"] = np.inf
+    with pytest.raises(ValueError, match="Non-finite"):
+        validate(frame)

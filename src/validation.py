@@ -1,10 +1,15 @@
 import json  # Отчет проверки.
 from pathlib import Path  # Путь отчета.
+import numpy as np
 import great_expectations as gx  # Data validation — проверка данных.
 from src.schema import FEATURES, TARGET, PAY, PAID  # Общая схема.
 
 
 def validate(frame, report=None):
+    # Reject infinities as well as NaNs. / Отклоняем бесконечности и NaN.
+    numeric = frame.select_dtypes(include="number")
+    if not np.isfinite(numeric.to_numpy()).all():
+        raise ValueError("Great Expectations validation failed: Non-finite data")
     context = gx.get_context(mode="ephemeral")  # Независимый контекст в памяти.
     source = context.data_sources.add_pandas(name="credit")  # Источник pandas.
     asset = source.add_dataframe_asset(name="clients")  # Набор клиентов.

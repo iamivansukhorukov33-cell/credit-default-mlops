@@ -1,0 +1,3 @@
+mkdir -p failed for path /Users/ivansukhorukov/.matplotlib: [Errno 1] Operation not permitted: '/Users/ivansukhorukov/.matplotlib'
+Matplotlib created a temporary cache directory at /var/folders/s2/2s0qdh2x65xfxk60_44s44r80000gn/T/matplotlib-f3_i_4tm because there was an issue with the default path (/Users/ivansukhorukov/.matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+Matplotlib is building the font cache; this may take a moment.

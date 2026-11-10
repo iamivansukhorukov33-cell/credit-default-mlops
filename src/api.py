@@ -30,7 +30,7 @@ for column in FEATURES:
     fields[column] = (
         kind,
         Field(..., allow_inf_nan=False, **bounds),
-    )  # Никаких NaN/inf.
+    )  # Reject NaN and infinity. / Никаких NaN/inf.
 Client = create_model(
     "Client", __config__=ConfigDict(extra="forbid", strict=True), **fields
 )  # Не допускаем лишние поля.
@@ -39,7 +39,9 @@ Client = create_model(
 @asynccontextmanager
 async def lifespan(app):
     path = os.getenv("MODEL_PATH", "models/pipeline.joblib")  # Можно изменить путь.
-    app.state.model = joblib.load(path)  # Ошибка старта при отсутствии модели.
+    app.state.model = joblib.load(
+        path
+    )  # Fail startup if model is missing. / Ошибка старта при отсутствии модели.
     yield  # Приложение работает.
 
 

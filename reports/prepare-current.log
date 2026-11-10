@@ -1,0 +1,14 @@
+'data/raw.dvc' didn't change, skipping
+Running stage 'prepare':
+> python -m src.data prepare
+Calculating Metrics:   0%|          | 0/223 [00:00<?, ?it/s]Calculating Metrics:   0%|          | 0/223 [00:00<?, ?it/s]Calculating Metrics:   1%|          | 2/223 [00:00<00:00, 2355.69it/s]Calculating Metrics:   1%|          | 2/223 [00:00<00:00, 1194.62it/s]Calculating Metrics:   1%|▏         | 3/223 [00:00<00:00, 1589.76it/s]Calculating Metrics:   1%|▏         | 3/223 [00:00<00:00, 1236.04it/s]Calculating Metrics:  21%|██        | 47/223 [00:00<00:00, 4431.43it/s]Calculating Metrics:  21%|██        | 47/223 [00:00<00:00, 4200.92it/s]Calculating Metrics: 100%|██████████| 223/223 [00:00<00:00, 5785.89it/s]Calculating Metrics: 100%|██████████| 223/223 [00:00<00:00, 5734.56it/s]Calculating Metrics: 100%|██████████| 223/223 [00:00<00:00, 5708.00it/s]Calculating Metrics: 100%|██████████| 223/223 [00:00<00:00, 5679.92it/s]
+Updating lock file 'dvc.lock'
+
+To track the changes with git, run:
+
+	git add dvc.lock
+
+To enable auto staging, run:
+
+	dvc config core.autostage true
+Use `dvc push` to send your updates to remote storage.

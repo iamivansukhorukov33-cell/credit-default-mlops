@@ -25,7 +25,9 @@ from src.validation import validate  # Защита от испорченных 
 
 
 def metrics(y, probability):
-    labels = probability >= 0.5  # Фиксированный порог; test не подбирает его.
+    labels = (
+        probability >= 0.5
+    )  # Fixed decision threshold. / Фиксированный порог; test не подбирает его.
     return {
         "roc_auc": float(roc_auc_score(y, probability)),
         "precision": float(precision_score(y, labels, zero_division=0)),
@@ -71,8 +73,8 @@ def train():
         with mlflow.start_run(run_name=name) as run:
             search = GridSearchCV(
                 create_pipeline(classifier), grid, scoring="roc_auc", cv=cv, n_jobs=1
-            )  # Преобработка внутри CV.
-            search.fit(X, y)  # Обучение без test.
+            )  # Fit preprocessing inside CV. / Преобработка внутри CV.
+            search.fit(X, y)  # Keep test data unseen. / Обучение без test.
             score = float(search.best_score_)  # Средний ROC-AUC.
             mlflow.log_params(
                 {
@@ -111,8 +113,10 @@ def train():
                     search.best_estimator_,
                     score,
                     run.info.run_id,
-                )  # Выбор по train CV.
-    test = pd.read_csv("data/processed/test.csv")  # Открываем test после выбора.
+                )  # Select using train CV only. / Выбор по train CV.
+    test = pd.read_csv(
+        "data/processed/test.csv"
+    )  # Evaluate test after model selection. / Открываем test после выбора.
     validate(test)  # Проверяем контрольную выборку.
     probability = best_model.predict_proba(test[FEATURES])[:, 1]  # Вероятность дефолта.
     scores = metrics(test[TARGET], probability)  # Итоговые метрики.

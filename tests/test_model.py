@@ -38,3 +38,18 @@ def test_psi():
     reference = np.arange(100)  # Эталон.
     assert psi(reference, reference) == 0  # Нет дрейфа.
     assert psi(reference, reference + 200) > 0.2  # Сильный сдвиг.
+
+
+def test_psi_constant_shifts():
+    reference = np.ones(100)
+    assert psi(reference, reference) == 0
+    assert psi(reference, reference - 1) > 0.2
+    assert psi(reference, reference + 1) > 0.2
+
+
+def test_psi_invalid():
+    import pytest
+
+    for current in ([], [np.nan], [np.inf], [[1, 2]]):
+        with pytest.raises(ValueError):
+            psi([1, 2], current)

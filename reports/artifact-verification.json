@@ -1,0 +1,14 @@
+{
+  "rows_train": 24000,
+  "rows_test": 6000,
+  "disjoint_ids": true,
+  "source_sha256_matches": true,
+  "finished_runs": 5,
+  "mlflow_model_matches_joblib": true,
+  "metrics": {
+    "roc_auc": 0.7797282920966394,
+    "precision": 0.6591549295774648,
+    "recall": 0.35267520723436324,
+    "f1": 0.45949926362297494
+  }
+}

@@ -1,0 +1,28 @@
+'data/raw.dvc' didn't change, skipping
+Running stage 'prepare':
+> python -m src.data prepare
+Calculating Metrics:   0%|          | 0/223 [00:00<?, ?it/s]Calculating Metrics:   0%|          | 0/223 [00:00<?, ?it/s]Calculating Metrics:   1%|          | 2/223 [00:00<00:00, 2217.45it/s]Calculating Metrics:   1%|          | 2/223 [00:00<00:00, 1170.29it/s]Calculating Metrics:   1%|▏         | 3/223 [00:00<00:00, 1560.96it/s]Calculating Metrics:   1%|▏         | 3/223 [00:00<00:00, 1223.07it/s]Calculating Metrics:  21%|██        | 47/223 [00:00<00:00, 4406.18it/s]Calculating Metrics:  21%|██        | 47/223 [00:00<00:00, 4168.58it/s]Calculating Metrics: 100%|██████████| 223/223 [00:00<00:00, 5777.35it/s]Calculating Metrics: 100%|██████████| 223/223 [00:00<00:00, 5724.10it/s]Calculating Metrics: 100%|██████████| 223/223 [00:00<00:00, 5696.63it/s]Calculating Metrics: 100%|██████████| 223/223 [00:00<00:00, 5667.26it/s]
+Updating lock file 'dvc.lock'
+
+Stage 'eda' didn't change, skipping
+Running stage 'train':
+> python -m src.train
+2026/11/10 20:08:01 INFO mlflow.agent.hint: Load the `instrumenting-with-mlflow-tracing` skill at /Users/ivansukhorukov/.codex/.chatgpt-projects/g-p-6a8b0d92bb9c8191b9659640c36c0dcc/credit-default-mlops/.venv/lib/python3.12/site-packages/mlflow/assistant/skills/instrumenting-with-mlflow-tracing/SKILL.md before writing any tracing code; it ships with this MLflow install. Set MLFLOW_DISABLE_AGENT_HINT=1 to silence this.
+Calculating Metrics:   0%|          | 0/223 [00:00<?, ?it/s]Calculating Metrics:   0%|          | 0/223 [00:00<?, ?it/s]Calculating Metrics:   1%|          | 2/223 [00:00<00:00, 991.09it/s]Calculating Metrics:   1%|          | 2/223 [00:00<00:00, 638.11it/s]Calculating Metrics:   1%|▏         | 3/223 [00:00<00:00, 867.25it/s]Calculating Metrics:   1%|▏         | 3/223 [00:00<00:00, 748.85it/s]Calculating Metrics:  21%|██        | 47/223 [00:00<00:00, 3655.00it/s]Calculating Metrics:  21%|██        | 47/223 [00:00<00:00, 3513.51it/s]Calculating Metrics: 100%|██████████| 223/223 [00:00<00:00, 5518.69it/s]Calculating Metrics: 100%|██████████| 223/223 [00:00<00:00, 5473.16it/s]Calculating Metrics: 100%|██████████| 223/223 [00:00<00:00, 5449.24it/s]Calculating Metrics: 100%|██████████| 223/223 [00:00<00:00, 5420.47it/s]
+Calculating Metrics:   0%|          | 0/223 [00:00<?, ?it/s]Calculating Metrics:   0%|          | 0/223 [00:00<?, ?it/s]Calculating Metrics:   1%|          | 2/223 [00:00<00:00, 12710.01it/s]Calculating Metrics:   1%|          | 2/223 [00:00<00:00, 2573.19it/s] Calculating Metrics:   1%|▏         | 3/223 [00:00<00:00, 3091.62it/s]Calculating Metrics:   1%|▏         | 3/223 [00:00<00:00, 1990.65it/s]Calculating Metrics:  21%|██        | 47/223 [00:00<00:00, 6195.43it/s]Calculating Metrics:  21%|██        | 47/223 [00:00<00:00, 5798.01it/s]Calculating Metrics: 100%|██████████| 223/223 [00:00<00:00, 6599.52it/s]Calculating Metrics: 100%|██████████| 223/223 [00:00<00:00, 6538.62it/s]Calculating Metrics: 100%|██████████| 223/223 [00:00<00:00, 6504.79it/s]Calculating Metrics: 100%|██████████| 223/223 [00:00<00:00, 6469.15it/s]
+{
+  "roc_auc": 0.7797282920966394,
+  "precision": 0.6591549295774648,
+  "recall": 0.35267520723436324,
+  "f1": 0.45949926362297494
+}
+Updating lock file 'dvc.lock'
+
+To track the changes with git, run:
+
+	git add dvc.lock
+
+To enable auto staging, run:
+
+	dvc config core.autostage true
+Use `dvc push` to send your updates to remote storage.

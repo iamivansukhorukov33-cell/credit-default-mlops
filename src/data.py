@@ -48,7 +48,7 @@ def clean(frame):
     if frame["ID"].duplicated().any():
         raise ValueError(
             "Duplicate client ID"
-        )  # Не допускаем одного клиента в разных выборках.
+        )  # Prevent client overlap across splits. / Не допускаем одного клиента в разных выборках.
     for column in frame.columns:
         frame[column] = pd.to_numeric(frame[column], errors="raise")  # Проверяем числа.
     frame["EDUCATION"] = frame["EDUCATION"].replace(
@@ -65,7 +65,7 @@ def prepare():
     validate(frame, "reports/validation.json")  # Проверяем до разделения.
     train, test = train_test_split(
         frame, test_size=0.2, stratify=frame[TARGET], random_state=42
-    )  # Сохраняем долю классов.
+    )  # Preserve class proportions. / Сохраняем долю классов.
     Path("data/processed").mkdir(parents=True, exist_ok=True)  # Папка результатов.
     train.to_csv("data/processed/train.csv", index=False)  # Обучение.
     test.to_csv("data/processed/test.csv", index=False)  # Отложенная оценка.
