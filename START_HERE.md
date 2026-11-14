@@ -25,9 +25,7 @@ python -m src.monitor
 Swagger: http://127.0.0.1:8000/docs.
 MLflow: `mlflow ui --backend-store-uri sqlite:///mlflow.db --port 5000`.
 Повторное обучение: `dvc repro --force train`. Это создаст пять новых запусков.
-Docker: `docker build -t credit-default:local .`, затем
-`docker run --rm -p 8000:8000 credit-default:local`.
-Сначала остановите локальный uvicorn, чтобы освободить порт.
+Для запуска в Docker сначала остановите локальный uvicorn, чтобы освободить порт. Затем выполните `./scripts/run_docker.sh` и повторите `python -m scripts.api_smoke` в другом терминале.
 
 Результаты текущей проверки: `reports/verification.md`.
 Полные объяснения, ограничения, GitHub и внешний DVC remote: `README.md`.

@@ -27,7 +27,8 @@ dvc add data/raw
 dvc repro
 pytest -q
 black --check src tests scripts
-ruff check src tests scripts
+python -m pip install flake8==7.3.0
+python -m flake8 src tests scripts
 ```
 
 `dvc repro` при неизмененных входах использует кеш. Для повторного обучения: `dvc repro --force train`. Для первого запуска в новом репозитории без `.dvc`: `git init`, `dvc init`, `dvc add data/raw`, затем `dvc repro`. В приложенной версии инициализация уже выполнена.
@@ -46,7 +47,7 @@ ruff check src tests scripts
 | 8. Tracking — учет экспериментов | 5 опытов, параметры, CV, модели; test и ROC победителя | `mlflow.db`, `mlartifacts/` |
 | 9. Data versioning — версии данных | Стадии prepare, eda, train; исходные данные и модель | `dvc.yaml`, `dvc.lock` |
 | 10. Unit tests — модульные тесты | Очистка, аномалии GX, признаки, модель, API, PSI | `tests/` |
-| 11. CI — непрерывная интеграция | pytest, black, ruff, реальная проверка датасета | `.github/workflows/ci.yml` |
+| 11. CI — непрерывная интеграция | pytest, black, flake8, реальная проверка датасета | `.github/workflows/ci.yml` |
 | 12. REST API — HTTP-интерфейс модели | `/predict`: все 23 признака → класс и вероятность | `src/api.py` |
 | 13. Container — контейнер | Python 3.12, зависимости, модель, non-root, healthcheck | `Dockerfile` |
 | 14. Monitoring — мониторинг | Имитация новых клиентов через API, PSI | `src/monitor.py` |
@@ -87,6 +88,8 @@ docker build -t credit-default:local .
 docker run --rm -p 8000:8000 credit-default:local
 python -m scripts.api_smoke
 ```
+
+Скрипт `./scripts/run_docker.sh` собирает образ и запускает контейнер на локальном порту 8000. Перед запуском остановите локальный uvicorn, если он занимает этот порт.
 
 Контейнеру нужны уже созданные `models/pipeline.joblib` и зависимости. Docker daemon должен работать. Образ включает зависимости обучения, чтобы сохранить возможность их использования; исходные данные не включаются в образ.
 
