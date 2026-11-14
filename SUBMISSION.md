@@ -8,7 +8,7 @@
 | --- | --- |
 | Подготовка и анализ данных | [src/data.py](src/data.py), [ноутбук EDA](notebooks/01_eda.ipynb) |
 | Признаки и валидация | [src/features.py](src/features.py), [src/validation.py](src/validation.py), [тесты данных](tests/test_data.py) |
-| Обучение и сравнение моделей | [src/train.py](src/train.py), [результаты](docs/RESULTS.md), [ROC-кривая](reports/roc.png) |
+| Обучение и сравнение моделей | [src/train.py](src/train.py), [результаты](docs/RESULTS.md) |
 | Воспроизводимость и автоматические проверки | [dvc.yaml](dvc.yaml), [GitHub Actions](.github/workflows/ci.yml), [тесты](tests/) |
 | Сервис прогнозирования и мониторинг | [src/api.py](src/api.py), [Dockerfile](Dockerfile), [src/monitor.py](src/monitor.py) |
 
